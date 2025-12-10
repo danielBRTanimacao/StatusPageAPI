@@ -15,12 +15,14 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class MonitorStatusEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
     private String url;
-    private boolean is_on;
+
+    private boolean isOn;
+    private LocalDateTime lastChecked;
 
     @CreatedDate
     private LocalDateTime createdAt;
