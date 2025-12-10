@@ -1,6 +1,7 @@
 package daniel.services.impl;
 
 import daniel.entities.MonitorStatusEntity;
+import daniel.exceptions.customs.ListIsEmptyException;
 import daniel.repositories.MonitorStatusRepository;
 import daniel.services.MonitorStatusService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,11 @@ public class MonitorStatusServiceImpl implements MonitorStatusService {
 
     @Override
     public List<MonitorStatusEntity> listAll() {
-        return repository.findAll();
+        List<MonitorStatusEntity> request = repository.findAll();
+
+        if (request.isEmpty()) {
+            throw new ListIsEmptyException("List is empty");
+        }
+        return request;
     }
 }
