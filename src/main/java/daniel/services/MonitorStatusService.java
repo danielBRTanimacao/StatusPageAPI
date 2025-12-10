@@ -1,9 +1,9 @@
 package daniel.services;
 
 import daniel.entities.MonitorStatusEntity;
+import org.springframework.data.domain.Page;
 
-import java.util.List;
 
 public interface MonitorStatusService {
-    List<MonitorStatusEntity> listAll();
+    Page<MonitorStatusEntity> paginateAllStatus(int pageNum, int pageSize);
 }
