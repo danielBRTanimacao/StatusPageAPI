@@ -2,6 +2,7 @@ package daniel.controllers.impl;
 
 import daniel.controllers.MonitorStatusController;
 import daniel.dtos.monitors.RequestMonitors;
+import daniel.dtos.monitors.ResponseMonitors;
 import daniel.entities.MonitorStatusEntity;
 import daniel.mappers.MonitorStatusMapper;
 import daniel.services.MonitorStatusService;
@@ -18,7 +19,7 @@ public class MonitorStatusControllerImpl implements MonitorStatusController {
     private final MonitorStatusMapper mapper;
 
     @Override
-    public ResponseEntity<Page<MonitorStatusEntity>> listAllServicesStatus(int pgNum, int pgSize) {
+    public ResponseEntity<Page<ResponseMonitors>> listAllServicesStatus(int pgNum, int pgSize) {
         return ResponseEntity.ok().body(service.paginateAllStatus(pgNum, pgSize));
     }
 
