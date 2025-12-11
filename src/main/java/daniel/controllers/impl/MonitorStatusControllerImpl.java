@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class MonitorStatusControllerImpl implements MonitorStatusController {
-
     private final MonitorStatusService service;
     private final MonitorStatusMapper mapper;
 
