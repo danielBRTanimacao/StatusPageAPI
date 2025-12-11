@@ -26,7 +26,7 @@ public class MonitorStatusEntity {
     private String name;
     private String url;
 
-    private boolean on;
+    private boolean online;
     private LocalDateTime lastChecked;
 
     @CreatedDate
