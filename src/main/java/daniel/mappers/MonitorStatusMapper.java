@@ -5,7 +5,7 @@ import daniel.dtos.monitors.ResponseMonitors;
 import daniel.entities.MonitorStatusEntity;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface MonitorStatusMapper {
     ResponseMonitors toDto(MonitorStatusEntity data);
     MonitorStatusEntity toEntity(RequestMonitors data);

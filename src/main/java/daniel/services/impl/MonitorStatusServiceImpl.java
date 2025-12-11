@@ -10,8 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class MonitorStatusServiceImpl implements MonitorStatusService {
@@ -25,5 +23,10 @@ public class MonitorStatusServiceImpl implements MonitorStatusService {
             throw new ListIsEmptyException("List is empty");
         }
         return request;
+    }
+
+    @Override
+    public void createMonitor(MonitorStatusEntity data) {
+        repository.save(data);
     }
 }
