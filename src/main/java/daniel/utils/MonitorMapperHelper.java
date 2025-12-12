@@ -18,6 +18,7 @@ import java.util.List;
 public class MonitorMapperHelper {
     private final MonitorDowntimeRepository repository;
 
+    @Named("mapDowntimesSafe")
     public List<Long> mapDowntimesSafe(MonitorStatusEntity data) {
         try {
             if (data.getDowntimes() == null) {
@@ -32,6 +33,7 @@ public class MonitorMapperHelper {
         }
     }
 
+    @Named("mapIdDowntimes")
     public List<MonitorDowntimeEntity> mapIdDowntimes(UpdateMonitorsDTO data) {
         if (data.downtimes() == null) {
             return null;
