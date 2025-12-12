@@ -5,6 +5,7 @@ import daniel.dtos.monitors.ResponseMonitorsDTO;
 import daniel.dtos.monitors.UpdateMonitorsDTO;
 import daniel.entities.MonitorDowntimeEntity;
 import daniel.entities.MonitorStatusEntity;
+import org.hibernate.LazyInitializationException;
 import org.mapstruct.*;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public interface MonitorStatusMapper {
     MonitorStatusEntity toEntity(RequestMonitorsDTO data);
 
     MonitorStatusEntity toUpdateEntity(UpdateMonitorsDTO data);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void partialUpdate(MonitorStatusEntity data, @MappingTarget MonitorStatusEntity entity);
 
     default List<Long> mapDowntimesSafe(MonitorStatusEntity data) {
         try {
@@ -26,7 +29,7 @@ public interface MonitorStatusMapper {
                     .stream()
                     .map(MonitorDowntimeEntity::getId)
                     .toList();
-        } catch (org.hibernate.LazyInitializationException e) {
+        } catch (LazyInitializationException e) {
             return null;
         }
     }
