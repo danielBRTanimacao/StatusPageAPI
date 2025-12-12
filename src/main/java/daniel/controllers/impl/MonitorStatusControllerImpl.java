@@ -33,7 +33,8 @@ public class MonitorStatusControllerImpl implements MonitorStatusController {
 
     @Override
     public ResponseEntity<Void> updateSpecificService(UpdateMonitorsDTO data, Long id) {
-        MonitorStatusEntity entityUpdt = mapper.toUpdateEntity(data);
+        //MonitorStatusEntity entityUpdt = mapper.toUpdateEntity(data);
+        MonitorStatusEntity entityUpdt = new MonitorStatusEntity();
         service.updtMonitor(entityUpdt, id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
