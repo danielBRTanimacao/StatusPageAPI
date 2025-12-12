@@ -1,10 +1,10 @@
 package daniel.services.impl;
 
-import daniel.dtos.monitors.ResponseMonitors;
+import daniel.dtos.monitors.ResponseMonitorsDTO;
 import daniel.entities.MonitorStatusEntity;
 import daniel.exceptions.customs.ListIsEmptyException;
+import daniel.exceptions.customs.NotFoundException;
 import daniel.mappers.MonitorStatusMapper;
-import daniel.repositories.MonitorDowntimeRepository;
 import daniel.repositories.MonitorStatusRepository;
 import daniel.services.MonitorStatusService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class MonitorStatusServiceImpl implements MonitorStatusService {
     private final MonitorStatusMapper mapper;
 
     @Override
-    public Page<ResponseMonitors> paginateAllStatus(int pageNum, int pageSize) {
+    public Page<ResponseMonitorsDTO> paginateAllStatus(int pageNum, int pageSize) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<MonitorStatusEntity> request = repository.findAll(pageable);
         if (request.isEmpty()) {
@@ -36,5 +36,13 @@ public class MonitorStatusServiceImpl implements MonitorStatusService {
         data.setOnline(true);
         data.setLastChecked(LocalDateTime.now());
         repository.save(data);
+    }
+
+    @Override
+    public void updtMonitor(MonitorStatusEntity data, Long id) {
+        MonitorStatusEntity preUpdt = repository.findById(id).orElseThrow(
+                () -> new NotFoundException("MonitorStatus not found")
+        );
+        repository.save(preUpdt);
     }
 }

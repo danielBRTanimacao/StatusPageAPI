@@ -1,10 +1,13 @@
 package daniel.dtos.monitors;
 
+import org.hibernate.validator.constraints.URL;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record ResponseMonitors(
+public record UpdateMonitorsDTO(
         String name,
+        @URL
         String url,
         boolean online,
         LocalDateTime lastChecked,

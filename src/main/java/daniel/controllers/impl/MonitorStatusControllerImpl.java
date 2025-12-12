@@ -1,8 +1,9 @@
 package daniel.controllers.impl;
 
 import daniel.controllers.MonitorStatusController;
-import daniel.dtos.monitors.RequestMonitors;
-import daniel.dtos.monitors.ResponseMonitors;
+import daniel.dtos.monitors.RequestMonitorsDTO;
+import daniel.dtos.monitors.ResponseMonitorsDTO;
+import daniel.dtos.monitors.UpdateMonitorsDTO;
 import daniel.entities.MonitorStatusEntity;
 import daniel.mappers.MonitorStatusMapper;
 import daniel.services.MonitorStatusService;
@@ -19,14 +20,21 @@ public class MonitorStatusControllerImpl implements MonitorStatusController {
     private final MonitorStatusMapper mapper;
 
     @Override
-    public ResponseEntity<Page<ResponseMonitors>> listAllServicesStatus(int pgNum, int pgSize) {
+    public ResponseEntity<Page<ResponseMonitorsDTO>> listAllServicesStatus(int pgNum, int pgSize) {
         return ResponseEntity.ok().body(service.paginateAllStatus(pgNum, pgSize));
     }
 
     @Override
-    public ResponseEntity<Void> addNewService(RequestMonitors data) {
+    public ResponseEntity<Void> addNewService(RequestMonitorsDTO data) {
         MonitorStatusEntity entity = mapper.toEntity(data);
         service.createMonitor(entity);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<Void> updateSpecificService(UpdateMonitorsDTO data, Long id) {
+        MonitorStatusEntity entityUpdt = mapper.toUpdateEntity(data);
+        service.updtMonitor(entityUpdt, id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

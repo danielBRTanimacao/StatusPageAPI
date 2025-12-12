@@ -1,19 +1,21 @@
 package daniel.mappers;
 
-import daniel.dtos.monitors.RequestMonitors;
-import daniel.dtos.monitors.ResponseMonitors;
+import daniel.dtos.monitors.RequestMonitorsDTO;
+import daniel.dtos.monitors.ResponseMonitorsDTO;
+import daniel.dtos.monitors.UpdateMonitorsDTO;
 import daniel.entities.MonitorDowntimeEntity;
 import daniel.entities.MonitorStatusEntity;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface MonitorStatusMapper {
     @Mapping(target = "downtimes", expression = "java( mapDowntimesSafe(data) )")
-    ResponseMonitors toDto(MonitorStatusEntity data);
-    MonitorStatusEntity toEntity(RequestMonitors data);
+    ResponseMonitorsDTO toDto(MonitorStatusEntity data);
+    MonitorStatusEntity toEntity(RequestMonitorsDTO data);
+
+    MonitorStatusEntity toUpdateEntity(UpdateMonitorsDTO data);
 
     default List<Long> mapDowntimesSafe(MonitorStatusEntity data) {
         try {
