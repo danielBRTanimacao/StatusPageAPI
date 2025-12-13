@@ -15,6 +15,6 @@ public interface MonitorStatusMapper {
 
     @Mapping(target = "downtimes", source = ".", qualifiedByName = "mapIdDowntimes")
     MonitorStatusEntity toUpdateEntity(UpdateMonitorsDTO data);
-//    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-//    void partialUpdate(MonitorStatusEntity data, @MappingTarget MonitorStatusEntity entity);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void partialUpdate(MonitorStatusEntity data, @MappingTarget MonitorStatusEntity entity);
 }

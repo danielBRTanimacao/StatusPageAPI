@@ -43,7 +43,7 @@ public class MonitorStatusServiceImpl implements MonitorStatusService {
         MonitorStatusEntity preUpdt = repository.findById(id).orElseThrow(
                 () -> new NotFoundException("MonitorStatus whit id: " + id + " not found")
         );
-        //mapper.partialUpdate(data, preUpdt);
+        mapper.partialUpdate(data, preUpdt);
         repository.save(preUpdt);
     }
 }
