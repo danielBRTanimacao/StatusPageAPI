@@ -1,6 +1,11 @@
 package daniel.dtos.healths;
 
+import java.time.LocalDateTime;
+
 public record ResponseHealthStatusDTO(
-        boolean online
+        String name,
+        String url,
+        boolean online,
+        LocalDateTime lastChecked
 ) {
 }
