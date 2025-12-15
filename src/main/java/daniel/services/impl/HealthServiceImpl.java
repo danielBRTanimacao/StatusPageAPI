@@ -1,6 +1,7 @@
 package daniel.services.impl;
 
 import daniel.dtos.healths.ResponseHealthStatusDTO;
+import daniel.entities.MonitorDowntimeEntity;
 import daniel.entities.MonitorStatusEntity;
 import daniel.exceptions.customs.NotFoundException;
 import daniel.exceptions.customs.PermissionDeniedException;
@@ -8,18 +9,14 @@ import daniel.mappers.HealthStatusMapper;
 import daniel.repositories.MonitorStatusRepository;
 import daniel.services.HealthService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.PermissionDeniedDataAccessException;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
-import javax.naming.NoPermissionException;
-import java.net.URI;
-import java.net.http.HttpRequest;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +24,7 @@ public class HealthServiceImpl implements HealthService {
 
     private final HealthStatusMapper mapper;
     private final MonitorStatusRepository repository;
+    private final MonitorDowntimeEntity downtimeRepository;
 
     @Override
     public ResponseHealthStatusDTO getStatusById(Long id) {
@@ -47,7 +45,11 @@ public class HealthServiceImpl implements HealthService {
                 throw new PermissionDeniedException("Invalid configuration on header permission denied");
             }
             if (!statusCode.equals(HttpStatus.OK)) {
+                MonitorDowntimeEntity downtime = new MonitorDowntimeEntity();
                 entity.setOnline(false);
+                downtime.setMonitor(entity);
+                downtime.setStartTime(LocalDateTime.now());
+                downtimeRepository.save(downtime);
             }
         } catch (ResourceAccessException e) {
             throw new ResourceAccessException(e.getMessage());
