@@ -36,13 +36,17 @@ public class HealthServiceImpl implements HealthService {
 
         try {
             RestTemplate req = new RestTemplate();
-            ResponseEntity<String> res = req.exchange(entity.getUrl(), HttpMethod.GET, null, String.class);
-            System.out.println(res.getStatusCode());
+            HttpStatusCode statusCode = req.exchange(
+                    entity.getUrl(),
+                    HttpMethod.GET,
+                    null,
+                    String.class
+            ).getStatusCode();
 
-            if (res.getStatusCode().value() == 999) {
+            if (statusCode.value() == 999) {
                 throw new PermissionDeniedException("Invalid configuration on header permission denied");
             }
-            if (!res.getStatusCode().equals(HttpStatus.OK)) {
+            if (!statusCode.equals(HttpStatus.OK)) {
                 entity.setOnline(false);
             }
         } catch (ResourceAccessException e) {
