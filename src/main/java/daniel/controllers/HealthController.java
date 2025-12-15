@@ -2,11 +2,12 @@ package daniel.controllers;
 
 import daniel.dtos.healths.ResponseHealthStatusDTO;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/api/health")
+@RequestMapping("/api/healths")
 public interface HealthController {
-    @RequestMapping("/{id}")
+    @GetMapping("/{id}")
     ResponseEntity<ResponseHealthStatusDTO> getStatusEndpoint(@PathVariable Long id);
 }
