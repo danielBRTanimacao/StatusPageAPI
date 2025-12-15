@@ -2,6 +2,7 @@ package daniel.exceptions;
 
 import daniel.exceptions.customs.ListIsEmptyException;
 import daniel.exceptions.customs.NotFoundException;
+import daniel.exceptions.customs.PermissionDeniedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -26,6 +27,13 @@ public class RaiseExceptionsHandler {
         Map<String, String> error = new HashMap<>();
         error.put("error", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(PermissionDeniedException.class)
+    public ResponseEntity<Map<String, String>> permissionDenied(PermissionDeniedException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(error);
     }
 
     @ExceptionHandler(ResourceAccessException.class)

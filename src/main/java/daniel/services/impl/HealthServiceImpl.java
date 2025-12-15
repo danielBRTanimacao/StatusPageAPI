@@ -3,10 +3,12 @@ package daniel.services.impl;
 import daniel.dtos.healths.ResponseHealthStatusDTO;
 import daniel.entities.MonitorStatusEntity;
 import daniel.exceptions.customs.NotFoundException;
+import daniel.exceptions.customs.PermissionDeniedException;
 import daniel.mappers.HealthStatusMapper;
 import daniel.repositories.MonitorStatusRepository;
 import daniel.services.HealthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.PermissionDeniedDataAccessException;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
+import javax.naming.NoPermissionException;
 import java.net.URI;
 import java.net.http.HttpRequest;
 
@@ -36,6 +39,9 @@ public class HealthServiceImpl implements HealthService {
             ResponseEntity<String> res = req.exchange(entity.getUrl(), HttpMethod.GET, null, String.class);
             System.out.println(res.getStatusCode());
 
+            if (res.getStatusCode().value() == 999) {
+                throw new PermissionDeniedException("Invalid configuration on header permission denied");
+            }
             if (!res.getStatusCode().equals(HttpStatus.OK)) {
                 entity.setOnline(false);
             }
