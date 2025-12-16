@@ -47,21 +47,25 @@ public class HealthServiceImpl implements HealthService {
             if (statusCode.value() == 999) {
                 throw new PermissionDeniedException("Invalid configuration permission denied");
             }
-            if (!statusCode.equals(HttpStatus.OK)) {
-                MonitorDowntimeEntity downtime = new MonitorDowntimeEntity();
-                entity.setOnline(false);
-                downtime.setMonitor(entity);
-                downtime.setStartTime(LocalDateTime.now());
-                downtimeRepository.save(downtime);
-            }
         } catch (ResourceAccessException e) {
             throw new ResourceAccessException(e.getMessage());
         } catch (HttpClientErrorException e) {
+            this.addDowntime(entity);
             throw new HttpClientErrorException(e.getStatusCode());
         } catch (HttpServerErrorException e) {
+            this.addDowntime(entity);
             throw new HttpServerErrorException(e.getStatusCode());
         }
 
         return mapper.toDTO(entity);
+    }
+
+    public void addDowntime(MonitorStatusEntity entity) {
+        MonitorDowntimeEntity downtime = new MonitorDowntimeEntity();
+        entity.setOnline(false);
+        downtime.setMonitor(entity);
+        downtime.setStartTime(LocalDateTime.now());
+        downtimeRepository.save(downtime);
+        repository.save(entity);
     }
 }
