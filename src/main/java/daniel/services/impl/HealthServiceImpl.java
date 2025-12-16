@@ -14,6 +14,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
@@ -54,6 +56,10 @@ public class HealthServiceImpl implements HealthService {
             }
         } catch (ResourceAccessException e) {
             throw new ResourceAccessException(e.getMessage());
+        } catch (HttpClientErrorException e) {
+            throw new HttpClientErrorException(e.getStatusCode());
+        } catch (HttpServerErrorException e) {
+            throw new HttpServerErrorException(e.getStatusCode());
         }
 
         return mapper.toDTO(entity);
