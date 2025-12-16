@@ -5,6 +5,7 @@ import daniel.entities.MonitorStatusEntity;
 import daniel.exceptions.customs.ListIsEmptyException;
 import daniel.exceptions.customs.NotFoundException;
 import daniel.mappers.MonitorStatusMapper;
+import daniel.repositories.MonitorDowntimeRepository;
 import daniel.repositories.MonitorStatusRepository;
 import daniel.services.MonitorStatusService;
 import lombok.RequiredArgsConstructor;

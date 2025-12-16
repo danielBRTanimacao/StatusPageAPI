@@ -6,6 +6,7 @@ import daniel.entities.MonitorStatusEntity;
 import daniel.exceptions.customs.NotFoundException;
 import daniel.exceptions.customs.PermissionDeniedException;
 import daniel.mappers.HealthStatusMapper;
+import daniel.repositories.MonitorDowntimeRepository;
 import daniel.repositories.MonitorStatusRepository;
 import daniel.services.HealthService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ public class HealthServiceImpl implements HealthService {
 
     private final HealthStatusMapper mapper;
     private final MonitorStatusRepository repository;
-    private final MonitorDowntimeEntity downtimeRepository;
+    private final MonitorDowntimeRepository downtimeRepository;
 
     @Override
     public ResponseHealthStatusDTO getStatusById(Long id) {
