@@ -5,8 +5,8 @@ import daniel.dtos.monitors.RequestMonitorsDTO;
 import daniel.dtos.monitors.ResponseMonitorsDTO;
 import daniel.dtos.monitors.UpdateMonitorsDTO;
 import daniel.entities.UptimeEntity;
-import daniel.mappers.MonitorStatusMapper;
-import daniel.services.MonitorStatusService;
+import daniel.mappers.UptimeMapper;
+import daniel.services.UptimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class UptimeControllerImpl implements UptimeController {
-    private final MonitorStatusService service;
-    private final MonitorStatusMapper mapper;
+    private final UptimeService service;
+    private final UptimeMapper mapper;
 
     @Override
     public ResponseEntity<Page<ResponseMonitorsDTO>> listAllServicesStatus(int pgNum, int pgSize) {

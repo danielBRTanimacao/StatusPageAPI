@@ -4,7 +4,7 @@ import daniel.dtos.healths.ResponseHealthStatusDTO;
 import daniel.entities.UptimeEntity;
 import daniel.exceptions.customs.NotFoundException;
 import daniel.exceptions.customs.PermissionDeniedException;
-import daniel.mappers.HealthStatusMapper;
+import daniel.mappers.HealthMapper;
 import daniel.repositories.UptimeRepository;
 import daniel.services.HealthService;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +22,8 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class HealthServiceImpl implements HealthService {
 
-    private final HealthStatusMapper mapper;
+    private final HealthMapper mapper;
     private final UptimeRepository repository;
-    private final MonitorDowntimeRepository downtimeRepository;
 
     @Override
     public ResponseHealthStatusDTO getStatusById(Long id) {
@@ -58,12 +57,7 @@ public class HealthServiceImpl implements HealthService {
     }
 
     public void updtDowntime(UptimeEntity entity) {
-        MonitorDowntimeEntity downtime = new MonitorDowntimeEntity();
         entity.setOnline(false);
-        entity.addDowntime(downtime);
-        downtime.setMonitor(entity);
-        downtime.setStartTime(LocalDateTime.now());
-        downtimeRepository.save(downtime);
         repository.save(entity);
     }
 }

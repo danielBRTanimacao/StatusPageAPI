@@ -4,9 +4,9 @@ import daniel.dtos.monitors.ResponseMonitorsDTO;
 import daniel.entities.UptimeEntity;
 import daniel.exceptions.customs.ListIsEmptyException;
 import daniel.exceptions.customs.NotFoundException;
-import daniel.mappers.MonitorStatusMapper;
+import daniel.mappers.UptimeMapper;
 import daniel.repositories.UptimeRepository;
-import daniel.services.MonitorStatusService;
+import daniel.services.UptimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,9 +17,9 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-public class MonitorStatusServiceImpl implements MonitorStatusService {
+public class UptimeServiceImpl implements UptimeService {
     private final UptimeRepository repository;
-    private final MonitorStatusMapper mapper;
+    private final UptimeMapper mapper;
 
     @Override
     public Page<ResponseMonitorsDTO> paginateAllStatus(int pageNum, int pageSize) {

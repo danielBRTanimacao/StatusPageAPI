@@ -5,6 +5,6 @@ import daniel.entities.UptimeEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface HealthStatusMapper {
+public interface HealthMapper {
     ResponseHealthStatusDTO toDTO(UptimeEntity data);
 }

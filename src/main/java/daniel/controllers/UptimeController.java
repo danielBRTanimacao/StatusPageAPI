@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-@RequestMapping("/api/monitors")
+@RequestMapping("/api/endpoints")
 public interface UptimeController {
     @GetMapping
     ResponseEntity<Page<ResponseMonitorsDTO>> listAllServicesStatus(
