@@ -1,6 +1,7 @@
 package daniel.controllers;
 
 import daniel.dtos.healths.ResponseHealthStatusDTO;
+import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

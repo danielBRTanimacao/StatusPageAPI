@@ -11,7 +11,6 @@ import daniel.repositories.MonitorStatusRepository;
 import daniel.services.HealthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -50,19 +49,20 @@ public class HealthServiceImpl implements HealthService {
         } catch (ResourceAccessException e) {
             throw new ResourceAccessException(e.getMessage());
         } catch (HttpClientErrorException e) {
-            this.addDowntime(entity);
+            this.updtDowntime(entity);
             throw new HttpClientErrorException(e.getStatusCode());
         } catch (HttpServerErrorException e) {
-            this.addDowntime(entity);
+            this.updtDowntime(entity);
             throw new HttpServerErrorException(e.getStatusCode());
         }
 
         return mapper.toDTO(entity);
     }
 
-    public void addDowntime(MonitorStatusEntity entity) {
+    public void updtDowntime(MonitorStatusEntity entity) {
         MonitorDowntimeEntity downtime = new MonitorDowntimeEntity();
         entity.setOnline(false);
+        entity.addDowntime(downtime);
         downtime.setMonitor(entity);
         downtime.setStartTime(LocalDateTime.now());
         downtimeRepository.save(downtime);
