@@ -9,4 +9,5 @@ public interface MonitorStatusService {
     Page<ResponseMonitorsDTO> paginateAllStatus(int pageNum, int pageSize);
     void createMonitor(MonitorStatusEntity data);
     void updtMonitor(MonitorStatusEntity data, Long id);
+    void delById(Long id);
 }

@@ -37,4 +37,10 @@ public class MonitorStatusControllerImpl implements MonitorStatusController {
         service.updtMonitor(entityUpdt, id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @Override
+    public ResponseEntity<Void> deleteServiceById(Long id) {
+        service.delById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

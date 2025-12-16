@@ -20,4 +20,6 @@ public interface MonitorStatusController {
     ResponseEntity<Void> addNewService(@Valid @RequestBody RequestMonitorsDTO data);
     @PutMapping("/{id}")
     ResponseEntity<Void> updateSpecificService(@RequestBody UpdateMonitorsDTO data, @PathVariable Long id);
+    @DeleteMapping("/{id}")
+    ResponseEntity<Void> deleteServiceById(@PathVariable Long id);
 }

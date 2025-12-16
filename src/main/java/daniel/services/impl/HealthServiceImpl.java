@@ -43,7 +43,7 @@ public class HealthServiceImpl implements HealthService {
             ).getStatusCode();
 
             if (statusCode.value() == 999) {
-                throw new PermissionDeniedException("Invalid configuration on header permission denied");
+                throw new PermissionDeniedException("Invalid configuration permission denied");
             }
             if (!statusCode.equals(HttpStatus.OK)) {
                 MonitorDowntimeEntity downtime = new MonitorDowntimeEntity();

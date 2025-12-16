@@ -1,6 +1,7 @@
 package daniel.services.impl;
 
 import daniel.dtos.monitors.ResponseMonitorsDTO;
+import daniel.entities.MonitorDowntimeEntity;
 import daniel.entities.MonitorStatusEntity;
 import daniel.exceptions.customs.ListIsEmptyException;
 import daniel.exceptions.customs.NotFoundException;
@@ -46,5 +47,13 @@ public class MonitorStatusServiceImpl implements MonitorStatusService {
         );
         mapper.partialUpdate(data, preUpdt);
         repository.save(preUpdt);
+    }
+
+    @Override
+    public void delById(Long id) {
+        MonitorStatusEntity delEntity = repository.findById(id).orElseThrow(
+                () -> new NotFoundException("MonitorStatus with id " + id + " not found")
+        );
+        repository.delete(delEntity);
     }
 }
