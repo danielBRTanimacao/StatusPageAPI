@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RequestMapping("/api/monitors")
-public interface MonitorStatusController {
+public interface UptimeController {
     @GetMapping
     ResponseEntity<Page<ResponseMonitorsDTO>> listAllServicesStatus(
             @RequestParam(defaultValue = "0") int pgNum,

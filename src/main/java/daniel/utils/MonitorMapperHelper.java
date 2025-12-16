@@ -2,10 +2,7 @@ package daniel.utils;
 
 
 import daniel.dtos.monitors.UpdateMonitorsDTO;
-import daniel.entities.MonitorDowntimeEntity;
-import daniel.entities.MonitorStatusEntity;
-import daniel.repositories.MonitorDowntimeRepository;
-import daniel.repositories.MonitorStatusRepository;
+import daniel.entities.UptimeEntity;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.LazyInitializationException;
 import org.mapstruct.Named;
@@ -19,7 +16,7 @@ public class MonitorMapperHelper {
     private final MonitorDowntimeRepository repository;
 
     @Named("mapDowntimesSafe")
-    public List<Long> mapDowntimesSafe(MonitorStatusEntity data) {
+    public List<Long> mapDowntimesSafe(UptimeEntity data) {
         try {
             if (data.getDowntimes() == null) {
                 return null;

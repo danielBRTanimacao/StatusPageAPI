@@ -8,7 +8,7 @@ public record ResponseMonitorsDTO(
         String name,
         String url,
         boolean online,
-        LocalDateTime lastChecked,
-        List<Long> downtimes
+        double ping,
+        LocalDateTime lastChecked
 ) {
 }

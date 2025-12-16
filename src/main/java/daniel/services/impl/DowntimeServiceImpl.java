@@ -1,7 +1,5 @@
 package daniel.services.impl;
 
-import daniel.entities.MonitorDowntimeEntity;
-import daniel.repositories.MonitorDowntimeRepository;
 import daniel.services.DowntimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
