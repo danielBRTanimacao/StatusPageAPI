@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 
+
 @Service
 @RequiredArgsConstructor
 public class HealthServiceImpl implements HealthService {
@@ -44,20 +45,24 @@ public class HealthServiceImpl implements HealthService {
                 throw new PermissionDeniedException("Invalid configuration permission denied");
             }
         } catch (ResourceAccessException e) {
+            updateEndpointStatus(entity, false);
             throw new ResourceAccessException(e.getMessage());
         } catch (HttpClientErrorException e) {
-            this.updtDowntime(entity);
+            updateEndpointStatus(entity, false);
             throw new HttpClientErrorException(e.getStatusCode());
         } catch (HttpServerErrorException e) {
-            this.updtDowntime(entity);
+            updateEndpointStatus(entity, false);
             throw new HttpServerErrorException(e.getStatusCode());
         }
 
+        updateEndpointStatus(entity, true);
         return mapper.toDTO(entity);
     }
 
-    public void updtDowntime(UptimeEntity entity) {
-        entity.setOnline(false);
-        repository.save(entity);
+    public void updateEndpointStatus(UptimeEntity e, boolean isOn) {
+        e.setPing(isOn ? 100 : 0);
+        e.setOnline(isOn);
+        e.setLastChecked(LocalDateTime.now());
+        repository.save(e);
     }
 }

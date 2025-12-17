@@ -15,7 +15,6 @@ public class HealthControllerImpl implements HealthController {
     private final HealthService service;
 
     @Override
-    @Transactional
     public ResponseEntity<ResponseHealthStatusDTO> getStatusEndpoint(Long id) {
         return ResponseEntity.ok().body(service.getStatusById(id));
     }
