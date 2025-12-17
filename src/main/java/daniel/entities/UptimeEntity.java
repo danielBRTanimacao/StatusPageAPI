@@ -3,39 +3,31 @@ package daniel.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)
-public class MonitorDowntimeEntity {
+public class UptimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "monitor_id", nullable = false)
-    private MonitorStatusEntity monitor;
+    private String name;
+    private String url;
 
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private boolean online;
+    private long ping;
+    private LocalDateTime lastChecked;
 
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate
     private LocalDateTime updatedAt;
-
-    public Long getDurationMinutes() {
-        if (startTime != null && endTime != null) {
-            return Duration.between(startTime, endTime).toMinutes();
-        }
-        return null;
-    }
 }

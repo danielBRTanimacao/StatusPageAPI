@@ -1,14 +1,12 @@
 package daniel.services.impl;
 
-import daniel.dtos.monitors.ResponseMonitorsDTO;
-import daniel.entities.MonitorDowntimeEntity;
-import daniel.entities.MonitorStatusEntity;
+import daniel.utils.dtos.uptimes.ResponseMonitorsDTO;
+import daniel.entities.UptimeEntity;
 import daniel.exceptions.customs.ListIsEmptyException;
 import daniel.exceptions.customs.NotFoundException;
-import daniel.mappers.MonitorStatusMapper;
-import daniel.repositories.MonitorDowntimeRepository;
-import daniel.repositories.MonitorStatusRepository;
-import daniel.services.MonitorStatusService;
+import daniel.mappers.UptimeMapper;
+import daniel.repositories.UptimeRepository;
+import daniel.services.UptimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,14 +17,14 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-public class MonitorStatusServiceImpl implements MonitorStatusService {
-    private final MonitorStatusRepository repository;
-    private final MonitorStatusMapper mapper;
+public class UptimeServiceImpl implements UptimeService {
+    private final UptimeRepository repository;
+    private final UptimeMapper mapper;
 
     @Override
     public Page<ResponseMonitorsDTO> paginateAllStatus(int pageNum, int pageSize) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        Page<MonitorStatusEntity> request = repository.findAll(pageable);
+        Page<UptimeEntity> request = repository.findAll(pageable);
         if (request.isEmpty()) {
             throw new ListIsEmptyException("List is empty");
         }
@@ -34,15 +32,15 @@ public class MonitorStatusServiceImpl implements MonitorStatusService {
     }
 
     @Override
-    public void createMonitor(MonitorStatusEntity data) {
+    public void createMonitor(UptimeEntity data) {
         data.setOnline(true);
         data.setLastChecked(LocalDateTime.now());
         repository.save(data);
     }
 
     @Override
-    public void updtMonitor(MonitorStatusEntity data, Long id) {
-        MonitorStatusEntity preUpdt = repository.findById(id).orElseThrow(
+    public void updtMonitor(UptimeEntity data, Long id) {
+        UptimeEntity preUpdt = repository.findById(id).orElseThrow(
                 () -> new NotFoundException("MonitorStatus whit id: " + id + " not found")
         );
         mapper.partialUpdate(data, preUpdt);
@@ -51,7 +49,7 @@ public class MonitorStatusServiceImpl implements MonitorStatusService {
 
     @Override
     public void delById(Long id) {
-        MonitorStatusEntity delEntity = repository.findById(id).orElseThrow(
+        UptimeEntity delEntity = repository.findById(id).orElseThrow(
                 () -> new NotFoundException("MonitorStatus with id " + id + " not found")
         );
         repository.delete(delEntity);

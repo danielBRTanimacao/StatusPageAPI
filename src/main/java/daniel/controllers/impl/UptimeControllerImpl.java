@@ -1,12 +1,12 @@
 package daniel.controllers.impl;
 
-import daniel.controllers.MonitorStatusController;
-import daniel.dtos.monitors.RequestMonitorsDTO;
-import daniel.dtos.monitors.ResponseMonitorsDTO;
-import daniel.dtos.monitors.UpdateMonitorsDTO;
-import daniel.entities.MonitorStatusEntity;
-import daniel.mappers.MonitorStatusMapper;
-import daniel.services.MonitorStatusService;
+import daniel.controllers.UptimeController;
+import daniel.utils.dtos.uptimes.RequestMonitorsDTO;
+import daniel.utils.dtos.uptimes.ResponseMonitorsDTO;
+import daniel.utils.dtos.uptimes.UpdateMonitorsDTO;
+import daniel.entities.UptimeEntity;
+import daniel.mappers.UptimeMapper;
+import daniel.services.UptimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class MonitorStatusControllerImpl implements MonitorStatusController {
-    private final MonitorStatusService service;
-    private final MonitorStatusMapper mapper;
+public class UptimeControllerImpl implements UptimeController {
+    private final UptimeService service;
+    private final UptimeMapper mapper;
 
     @Override
     public ResponseEntity<Page<ResponseMonitorsDTO>> listAllServicesStatus(int pgNum, int pgSize) {
@@ -26,14 +26,14 @@ public class MonitorStatusControllerImpl implements MonitorStatusController {
 
     @Override
     public ResponseEntity<Void> addNewService(RequestMonitorsDTO data) {
-        MonitorStatusEntity entity = mapper.toEntity(data);
+        UptimeEntity entity = mapper.toEntity(data);
         service.createMonitor(entity);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<Void> updateSpecificService(UpdateMonitorsDTO data, Long id) {
-        MonitorStatusEntity entityUpdt = mapper.toUpdateEntity(data);
+        UptimeEntity entityUpdt = mapper.toUpdateEntity(data);
         service.updtMonitor(entityUpdt, id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

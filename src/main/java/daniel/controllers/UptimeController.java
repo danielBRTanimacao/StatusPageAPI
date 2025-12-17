@@ -1,16 +1,16 @@
 package daniel.controllers;
 
-import daniel.dtos.monitors.RequestMonitorsDTO;
-import daniel.dtos.monitors.ResponseMonitorsDTO;
-import daniel.dtos.monitors.UpdateMonitorsDTO;
+import daniel.utils.dtos.uptimes.RequestMonitorsDTO;
+import daniel.utils.dtos.uptimes.ResponseMonitorsDTO;
+import daniel.utils.dtos.uptimes.UpdateMonitorsDTO;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-@RequestMapping("/api/monitors")
-public interface MonitorStatusController {
+@RequestMapping("/api/endpoints")
+public interface UptimeController {
     @GetMapping
     ResponseEntity<Page<ResponseMonitorsDTO>> listAllServicesStatus(
             @RequestParam(defaultValue = "0") int pgNum,

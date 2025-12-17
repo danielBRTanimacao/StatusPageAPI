@@ -1,6 +1,6 @@
 package daniel.services;
 
-import daniel.dtos.healths.ResponseHealthStatusDTO;
+import daniel.utils.dtos.healths.ResponseHealthStatusDTO;
 
 public interface HealthService {
     ResponseHealthStatusDTO getStatusById(Long id);
