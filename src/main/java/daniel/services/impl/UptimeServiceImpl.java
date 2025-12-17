@@ -1,6 +1,6 @@
 package daniel.services.impl;
 
-import daniel.dtos.monitors.ResponseMonitorsDTO;
+import daniel.utils.dtos.uptimes.ResponseMonitorsDTO;
 import daniel.entities.UptimeEntity;
 import daniel.exceptions.customs.ListIsEmptyException;
 import daniel.exceptions.customs.NotFoundException;

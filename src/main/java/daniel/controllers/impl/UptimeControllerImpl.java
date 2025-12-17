@@ -1,9 +1,9 @@
 package daniel.controllers.impl;
 
 import daniel.controllers.UptimeController;
-import daniel.dtos.monitors.RequestMonitorsDTO;
-import daniel.dtos.monitors.ResponseMonitorsDTO;
-import daniel.dtos.monitors.UpdateMonitorsDTO;
+import daniel.utils.dtos.uptimes.RequestMonitorsDTO;
+import daniel.utils.dtos.uptimes.ResponseMonitorsDTO;
+import daniel.utils.dtos.uptimes.UpdateMonitorsDTO;
 import daniel.entities.UptimeEntity;
 import daniel.mappers.UptimeMapper;
 import daniel.services.UptimeService;

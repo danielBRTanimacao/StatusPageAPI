@@ -1,6 +1,6 @@
 package daniel.services;
 
-import daniel.dtos.monitors.ResponseMonitorsDTO;
+import daniel.utils.dtos.uptimes.ResponseMonitorsDTO;
 import daniel.entities.UptimeEntity;
 import org.springframework.data.domain.Page;
 

@@ -1,21 +1,14 @@
 package daniel.services.impl;
 
-import daniel.dtos.healths.ResponseHealthStatusDTO;
+import daniel.utils.dtos.healths.ResponseHealthStatusDTO;
 import daniel.entities.UptimeEntity;
 import daniel.exceptions.customs.NotFoundException;
-import daniel.exceptions.customs.PermissionDeniedException;
 import daniel.mappers.HealthMapper;
 import daniel.repositories.UptimeRepository;
 import daniel.services.HealthService;
 import daniel.utils.EndpointHealthHandler;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
-
-import java.time.Instant;
-import java.time.LocalDateTime;
 
 
 @Service
@@ -37,7 +30,6 @@ public class HealthServiceImpl implements HealthService {
         } catch (Exception e) {
             handler.updateEndpointStatus(entity, false);
         }
-
         return mapper.toDTO(entity);
     }
 }

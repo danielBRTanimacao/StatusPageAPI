@@ -1,4 +1,4 @@
-package daniel.dtos.healths;
+package daniel.utils.dtos.healths;
 
 
 public record ResponseHealthStatusDTO(

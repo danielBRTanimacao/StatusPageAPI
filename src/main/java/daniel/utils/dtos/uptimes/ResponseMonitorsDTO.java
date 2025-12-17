@@ -1,4 +1,4 @@
-package daniel.dtos.monitors;
+package daniel.utils.dtos.uptimes;
 
 import java.time.LocalDateTime;
 

@@ -1,6 +1,6 @@
 package daniel.mappers;
 
-import daniel.dtos.healths.ResponseHealthStatusDTO;
+import daniel.utils.dtos.healths.ResponseHealthStatusDTO;
 import daniel.entities.UptimeEntity;
 import org.mapstruct.Mapper;
 
