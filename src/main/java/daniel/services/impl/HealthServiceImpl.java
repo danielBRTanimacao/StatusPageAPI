@@ -24,12 +24,7 @@ public class HealthServiceImpl implements HealthService {
         UptimeEntity entity = repository.findById(id).orElseThrow(
                 () -> new NotFoundException("Entity with id " + id + " Not found")
         );
-
-        try {
-            handler.checkEndpoint(entity);
-        } catch (Exception e) {
-            handler.updateEndpointStatus(entity, false);
-        }
+        handler.checkEndpoint(entity);
         return mapper.toDTO(entity);
     }
 }

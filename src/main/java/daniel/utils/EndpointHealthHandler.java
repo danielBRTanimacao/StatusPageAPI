@@ -33,23 +33,28 @@ public class EndpointHealthHandler {
     }
 
     public void checkEndpoint(UptimeEntity entity) {
-        long reqInstant = Instant.now().toEpochMilli();
+        long start = Instant.now().toEpochMilli();
 
-        webClient.get()
-                .uri(entity.getUrl())
-                .exchangeToMono(res -> {
-                    long actualPing = Instant.now().toEpochMilli() - reqInstant;
+        try {
+            webClient.get()
+                    .uri(entity.getUrl())
+                    .exchangeToMono(res -> {
+                        long ping = Instant.now().toEpochMilli() - start;
 
-                    if (res.statusCode().value() == 999) {
-                        updateEndpointStatus(entity, false);
-                        throw new PermissionDeniedException("Blocked by anti-bot (999)");
-                    } else if (!res.statusCode().equals(HttpStatus.OK)) {
-                        updateEndpointStatus(entity, false);
-                    } else {
-                        updateEndpointStatus(entity, true, actualPing);
-                    }
-                    return Mono.just(true);
-                })
-                .block();
+                        if (res.statusCode().value() == 999) {
+                            updateEndpointStatus(entity, false);
+                        } else if (res.statusCode().is2xxSuccessful()
+                                || res.statusCode().is3xxRedirection()) {
+                            updateEndpointStatus(entity, true, ping);
+                        } else {
+                            updateEndpointStatus(entity, false);
+                        }
+
+                        return Mono.empty();
+                    })
+                    .block();
+        } catch (Exception ex) {
+            updateEndpointStatus(entity, false);
+        }
     }
 }
