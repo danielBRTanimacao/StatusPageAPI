@@ -1,5 +1,6 @@
 package daniel.services.impl;
 
+import daniel.config.WebClientConfig;
 import daniel.dtos.healths.ResponseHealthStatusDTO;
 import daniel.entities.UptimeEntity;
 import daniel.exceptions.customs.NotFoundException;
@@ -11,10 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 
@@ -23,8 +23,9 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class HealthServiceImpl implements HealthService {
 
-    private final HealthMapper mapper;
     private final UptimeRepository repository;
+    private final WebClient webClient;
+    private final HealthMapper mapper;
 
     @Override
     public ResponseHealthStatusDTO getStatusById(Long id) {
@@ -32,30 +33,22 @@ public class HealthServiceImpl implements HealthService {
                 () -> new NotFoundException("Entity with id " + id + " Not found")
         );
 
-        try {
-            RestTemplate req = new RestTemplate();
-            HttpStatusCode statusCode = req.exchange(
-                    entity.getUrl(),
-                    HttpMethod.GET,
-                    null,
-                    String.class
-            ).getStatusCode();
 
-            if (statusCode.value() == 999) {
-                throw new PermissionDeniedException("Invalid configuration permission denied");
-            }
-        } catch (ResourceAccessException e) {
+        try {
+            webClient.get()
+                    .uri(entity.getUrl())
+                    .exchangeToMono(res -> {
+                        if (res.statusCode().value() == 999) {
+                            throw new PermissionDeniedException("Blocked by anti-bot (999)");
+                        }
+                        return Mono.just(true);
+                    })
+                    .block();
+            updateEndpointStatus(entity, true);
+        } catch (Exception e) {
             updateEndpointStatus(entity, false);
-            throw new ResourceAccessException(e.getMessage());
-        } catch (HttpClientErrorException e) {
-            updateEndpointStatus(entity, false);
-            throw new HttpClientErrorException(e.getStatusCode());
-        } catch (HttpServerErrorException e) {
-            updateEndpointStatus(entity, false);
-            throw new HttpServerErrorException(e.getStatusCode());
         }
 
-        updateEndpointStatus(entity, true);
         return mapper.toDTO(entity);
     }
 
