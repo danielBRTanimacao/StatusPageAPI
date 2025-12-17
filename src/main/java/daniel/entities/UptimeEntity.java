@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
@@ -22,7 +23,7 @@ public class UptimeEntity {
     private String url;
 
     private boolean online;
-    private double ping;
+    private long ping;
     private LocalDateTime lastChecked;
 
     @CreatedDate
