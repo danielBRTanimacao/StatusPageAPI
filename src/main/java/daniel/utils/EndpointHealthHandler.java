@@ -1,10 +1,8 @@
 package daniel.utils;
 
 import daniel.entities.UptimeEntity;
-import daniel.exceptions.customs.PermissionDeniedException;
 import daniel.repositories.UptimeRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
