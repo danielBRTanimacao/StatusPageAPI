@@ -7,8 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Slf4j
 @Component
@@ -17,7 +15,7 @@ public class ScheduledTasks {
     private final UptimeRepository repository;
     private final EndpointHealthHandler handler;
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 60_000)
     public void checkUptime() {
         repository.findAll().forEach(handler::checkEndpoint);
         log.info("checkup all uptime services");
