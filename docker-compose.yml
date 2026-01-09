@@ -1,7 +1,7 @@
-service:
+services:
   db:
     image: postgres:17
-    enviroment:
+    environment:
         - POSTGRES_USER=postgres
         - POSTGRES_PASSWORD=password
         - POSTGRES_DB=statusdb
