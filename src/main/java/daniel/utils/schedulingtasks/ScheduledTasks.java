@@ -4,6 +4,7 @@ import daniel.repositories.UptimeRepository;
 import daniel.utils.EndpointHealthHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,12 @@ public class ScheduledTasks {
 
     @Scheduled(fixedRate = 60_000)
     public void checkUptime() {
-        repository.findAll().forEach(handler::checkEndpoint);
+        try {
+            repository.findAll().forEach(handler::checkEndpoint);
+
+        } catch (InvalidDataAccessResourceUsageException e) {
+            log.error("Invalid access data db maybe not created");
+        }
         log.info("checkup all uptime services");
     }
 }
