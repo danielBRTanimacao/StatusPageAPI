@@ -1,4 +1,4 @@
-package daniel.services;
+package daniel.services.user;
 
 import daniel.entities.UserEntity;
 

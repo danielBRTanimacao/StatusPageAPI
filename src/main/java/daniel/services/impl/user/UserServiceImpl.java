@@ -1,11 +1,10 @@
-package daniel.services.impl;
+package daniel.services.impl.user;
 
 import daniel.entities.UserEntity;
 import daniel.exceptions.customs.DuplicateKeyColumnException;
-import daniel.exceptions.customs.NotFoundException;
 import daniel.repositories.UserRepository;
-import daniel.services.TokenService;
-import daniel.services.UserService;
+import daniel.services.user.TokenService;
+import daniel.services.user.UserService;
 import daniel.utils.dtos.users.ResponseToken;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;

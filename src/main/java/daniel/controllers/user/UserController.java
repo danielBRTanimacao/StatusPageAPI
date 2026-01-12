@@ -1,4 +1,4 @@
-package daniel.controllers;
+package daniel.controllers.user;
 
 import daniel.utils.dtos.users.RequestUserDTO;
 import daniel.utils.dtos.users.RequestUserLoginDTO;

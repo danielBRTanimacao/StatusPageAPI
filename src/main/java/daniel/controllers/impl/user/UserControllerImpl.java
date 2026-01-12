@@ -1,9 +1,9 @@
-package daniel.controllers.impl;
+package daniel.controllers.impl.user;
 
-import daniel.controllers.UserController;
+import daniel.controllers.user.UserController;
 import daniel.entities.UserEntity;
 import daniel.mappers.UserMapper;
-import daniel.services.UserService;
+import daniel.services.user.UserService;
 import daniel.utils.dtos.users.RequestUserDTO;
 import daniel.utils.dtos.users.RequestUserLoginDTO;
 import daniel.utils.dtos.users.ResponseToken;

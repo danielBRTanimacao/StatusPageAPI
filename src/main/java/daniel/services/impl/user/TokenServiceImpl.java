@@ -1,11 +1,11 @@
-package daniel.services.impl;
+package daniel.services.impl.user;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import daniel.entities.UserEntity;
 import daniel.exceptions.customs.TokenException;
-import daniel.services.TokenService;
+import daniel.services.user.TokenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

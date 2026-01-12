@@ -2,7 +2,7 @@ package daniel.config.auth;
 
 import daniel.entities.UserEntity;
 import daniel.repositories.UserRepository;
-import daniel.services.TokenService;
+import daniel.services.user.TokenService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
