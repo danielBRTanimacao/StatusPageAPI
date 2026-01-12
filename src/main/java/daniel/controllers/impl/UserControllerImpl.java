@@ -28,6 +28,9 @@ public class UserControllerImpl implements UserController {
 
     @Override
     public ResponseEntity<ResponseToken> loginUser(RequestUserLoginDTO data) {
-        return null;
+        UserEntity userData = new UserEntity();
+        userData.setName(data.name());
+        userData.setPassword(data.password());
+        return ResponseEntity.ok().body(service.loginUser(userData));
     }
 }
