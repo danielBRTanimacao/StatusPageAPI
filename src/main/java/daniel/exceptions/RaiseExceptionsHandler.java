@@ -1,8 +1,10 @@
 package daniel.exceptions;
 
+import daniel.exceptions.customs.DuplicateKeyColumnException;
 import daniel.exceptions.customs.ListIsEmptyException;
 import daniel.exceptions.customs.NotFoundException;
 import daniel.exceptions.customs.PermissionDeniedException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -32,14 +34,14 @@ public class RaiseExceptionsHandler {
     }
 
     @ExceptionHandler(HttpClientErrorException.class)
-    public ResponseEntity<Map<String, String>> notFoundObj(HttpClientErrorException ex) {
+    public ResponseEntity<Map<String, String>> notFoundClientObj(HttpClientErrorException ex) {
         Map<String, String> error = new HashMap<>();
         error.put("error", ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 
     @ExceptionHandler(HttpServerErrorException.class)
-    public ResponseEntity<Map<String, String>> notFoundObj(HttpServerErrorException ex) {
+    public ResponseEntity<Map<String, String>> internalClientError(HttpServerErrorException ex) {
         Map<String, String> error = new HashMap<>();
         error.put("error", ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
@@ -57,6 +59,13 @@ public class RaiseExceptionsHandler {
         Map<String, String> error = new HashMap<>();
         error.put("error", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(DuplicateKeyColumnException.class)
+    public ResponseEntity<Map<String, String>> duplicateColumnKey(DuplicateKeyColumnException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

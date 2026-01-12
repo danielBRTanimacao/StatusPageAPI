@@ -1,6 +1,8 @@
 package daniel.services.impl;
 
 import daniel.entities.UserEntity;
+import daniel.exceptions.customs.DuplicateKeyColumnException;
+import daniel.exceptions.customs.NotFoundException;
 import daniel.repositories.UserRepository;
 import daniel.services.TokenService;
 import daniel.services.UserService;
@@ -22,6 +24,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void registerUser(UserEntity data) {
+        if (repository.findByName(data.getName()).isPresent()) {
+            throw new DuplicateKeyColumnException("Ei doido ja tem usuario com esse nome");
+        }
         data.setPassword(passwordEncoder.encode(data.getPassword()));
         repository.save(data);
     }
