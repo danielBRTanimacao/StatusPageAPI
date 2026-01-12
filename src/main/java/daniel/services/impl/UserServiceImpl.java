@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void registerUser(UserEntity data) {
         if (repository.findByName(data.getName()).isPresent()) {
-            throw new DuplicateKeyColumnException("Ei doido ja tem usuario com esse nome");
+            throw new DuplicateKeyColumnException("User with name (" + data.getName() + ") already exists");
         }
         data.setPassword(passwordEncoder.encode(data.getPassword()));
         repository.save(data);
@@ -37,12 +37,12 @@ public class UserServiceImpl implements UserService {
         UserEntity user = repository.findByName(data.getName())
                 .orElseThrow(() -> {
                     log.error("User not found: {}", data.getName());
-                    return new EntityNotFoundException("User with email " + data.getName() + " not found");
+                    return new EntityNotFoundException("User with Name " + data.getName() + " not found");
                 });
 
         if (!this.passwordEncoder.matches(data.getPassword(), user.getPassword())) {
             log.error("Incorrect password for user {}", user.getName());
-            throw new IllegalArgumentException("Invalid email or password");
+            throw new IllegalArgumentException("Invalid password");
         }
 
         String token = tokenService.generateToken(user);
